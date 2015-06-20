@@ -29,7 +29,7 @@ abstract class BaseService
     /**
      * @var string Current version of the SDK
      */
-    const VERSION = '0.1.2';
+    const VERSION = '0.1.3';
 
     /**
      * Helper constent when build requests that contain attachments.

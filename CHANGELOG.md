@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-## Unreleased
+## 0.1.3 - 2015-06-20
 
 ### Features
 
