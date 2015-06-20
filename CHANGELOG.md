@@ -1,8 +1,13 @@
 CHANGELOG
 =========
 
-0.1.2 (2014-08-25)
-------------------
+## Unreleased
+
+### Features
+
+* Add Makefile to help with various tasks.
+
+## 0.1.2 - 2014-08-25
 
 ### Features
 
@@ -38,15 +43,13 @@ CHANGELOG
 
 * Update requirements to recommend 64 bit systems. ([150abfa](https://github.com/davidtsadler/ebay-sdk/commit/150abfae02699875f86806fbb274d4ae98089e7f) [David T. Sadler]
 
-0.1.1 (2014-08-14)
-------------------
+## 0.1.1 - 2014-08-14
 
 ### Fixes
 
 * Memory leak in XmlParser class. ([8bbd4ff](https://github.com/davidtsadler/ebay-sdk/commit/8bbd4ffde833f13936f1d1607ef559609e706a71), [#5](https://github.com/davidtsadler/ebay-sdk/issues/5)) [David T. Sadler]
 
-0.1.0 (2014-07-05)
-------------------
+## 0.1.0 - 2014-07-05
 
 ### Breaking changes
 
@@ -88,8 +91,7 @@ CHANGELOG
 * Update travis settings. ([541304c](https://github.com/davidtsadler/ebay-sdk/commit/541304ca8a50d6ea7328967c0d3ab145d8384627)) [David T. Sadler]
 * Add phpunit configuration file. ([f95a253](https://github.com/davidtsadler/ebay-sdk/commit/f95a2538b4ca89553f3beda4e1fe1ae3f030a05c)) [David T. Sadler]
 
-0.0.7 (2014-06-25)
-------------------
+## 0.0.7 - 2014-06-25
 
 ### Refactoring
 
