@@ -98,6 +98,10 @@ CHANGELOG
   */
   ```
 
+### Tests
+
+* Add PHP 5.6 and HHVM to travis settings.
+
 ## 0.1.2 - 2014-08-25
 
 ### Features
