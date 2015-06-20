@@ -6,6 +6,97 @@ CHANGELOG
 ### Features
 
 * Add Makefile to help with various tasks.
+* Allow object properties to be returned as an associative array.
+
+  ```php
+  use \DTS\eBaySDK\Trading\Types;
+  use \DTS\eBaySDK\Trading\Enums;
+
+  $item = new Types\ItemType();
+  $item->Title = 'An Example';
+  $item->Quantity = 99;
+  $item->StartPrice = new Types\AmountType(array('value' => 19.99));
+  $item->PaymentMethods = array(
+      'VisaMC',
+      'PayPal'
+  );
+  $item->ShippingDetails = new Types\ShippingDetailsType();
+  $item->ShippingDetails->ShippingType = Enums\ShippingTypeCodeType::C_FLAT;
+  $item->ShippingDetails->ShippingServiceOptions[] = new Types\ShippingServiceOptionsType(array(
+      'ShippingServicePriority' => 1,
+      'ShippingService' => 'Other',
+      'ShippingServiceCost' => new Types\AmountType(array('value' => 2.00)),
+      'ShippingServiceAdditionalCost' => new Types\AmountType(array('value' => 1.00))
+  ));
+  $item->ShippingDetails->ShippingServiceOptions[] = new Types\ShippingServiceOptionsType(array(
+      'ShippingServicePriority' => 1,
+      'ShippingService' => 'USPSParcel',
+      'ShippingServiceCost' => new Types\AmountType(array('value' => 3.00)),
+      'ShippingServiceAdditionalCost' => new Types\AmountType(array('value' => 2.00))
+  ));
+
+  print_r($item->toArray());
+
+  /**
+  Array
+  (
+      [PaymentMethods] => Array
+          (
+              [0] => VisaMC
+              [1] => PayPal
+          )
+
+      [Quantity] => 99
+      [ShippingDetails] => Array
+          (
+              [ShippingServiceOptions] => Array
+                  (
+                      [0] => Array
+                          (
+                              [ShippingService] => Other
+                              [ShippingServiceAdditionalCost] => Array
+                                  (
+                                      [value] => 1
+                                  )
+
+                              [ShippingServiceCost] => Array
+                                  (
+                                      [value] => 2
+                                  )
+
+                              [ShippingServicePriority] => 1
+                          )
+
+                      [1] => Array
+                          (
+                              [ShippingService] => USPSParcel
+                              [ShippingServiceAdditionalCost] => Array
+                                  (
+                                      [value] => 2
+                                  )
+
+                              [ShippingServiceCost] => Array
+                                  (
+                                      [value] => 3
+                                  )
+
+                              [ShippingServicePriority] => 1
+                          )
+
+                  )
+
+              [ShippingType] => Flat
+          )
+
+      [StartPrice] => Array
+          (
+              [value] => 19.99
+          )
+
+      [Title] => An Example
+  )
+  */
+  ```
 
 ## 0.1.2 - 2014-08-25
 
