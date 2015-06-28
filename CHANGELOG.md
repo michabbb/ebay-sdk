@@ -44,6 +44,24 @@ CHANGELOG
   assert('$mock === $service->httpClient()');
   ```
 
+* Allow access to the `Guzzle` object used by the default HTTP client instance.
+
+  You can now call the `guzzle` method on any instances of \DTS\eBaySDK\HttpClient\HttpClient 
+  This will return a Guzzle 3 \Guzzle\Http\Client instance.
+
+  ```php
+  $service = new Services\TradingService(array(
+    'apiVersion' => 925,
+    'siteId' => Constants\SiteIds::US
+  ));
+
+  $guzzle = $service->httpClient()->guzzle();
+
+  $guzzle->getConfig()->setPath('curl.options', array(
+      'CURLOPT_VERBOSE' => 1
+  ));
+  ```
+
 ## 0.1.3 - 2015-06-20
 
 ### Features
