@@ -1,6 +1,49 @@
 CHANGELOG
 =========
 
+## Unreleased
+
+### Features
+
+* Allow client code to access the HttpClient object used to send requests.
+
+  You can now call the `httpClient` method on a service object. This will
+  return an object that implments the \DTS\eBaySDK\Interfaces\HttpClientInterface. 
+  This object is responsible for the HTTP request to the API. By default 
+  the SDK will use a \DTS\eBaySDK\HttpClient\HttpClient object.
+
+  ```php  
+  $service = new Services\TradingService(array(
+    'apiVersion' => 925,
+    'siteId' => Constants\SiteIds::US
+  ));
+
+  $httpClient = $service->httpClient();
+  ```
+
+  If you provide your own HTTP client then calling `httpClient` will return
+  the same instance.
+
+  ```php
+  class MockClient implements \DTS\eBaySDK\Interfaces\HttpClientInterface
+  {
+    public function post($url, $headers, $body)
+    {
+        print_r($headers);
+        print($body);
+    }
+  }
+
+  $mock = new MockClient();
+  
+  $service = new Services\TradingService(array(
+    'apiVersion' => 925,
+    'siteId' => Constants\SiteIds::US
+  ), $mock);
+
+  assert('$mock === $service->httpClient()');
+  ```
+
 ## 0.1.3 - 2015-06-20
 
 ### Features

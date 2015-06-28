@@ -138,6 +138,15 @@ abstract class BaseService
     }
 
     /**
+     *
+     * @return \DTS\eBaySDK\Interfaces\HttpClientInterface
+     */
+    public function httpClient()
+    {
+        return $this->httpClient;
+    }
+
+    /**
      * Sends an API request.
      *
      * @param string $name The name of the operation.
