@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 0.1.6 - 2015-08-05
 
 ### Feature
 
