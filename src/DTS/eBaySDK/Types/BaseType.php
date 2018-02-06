@@ -218,6 +218,35 @@ class BaseType
     }
 
     /**
+     * @return array Returns an associative array of the object's properties and values.
+     */
+    public function toArray()
+    {
+        $array = array();
+
+        foreach (self::$properties[get_class($this)] as $name => $info) {
+            if (!array_key_exists($name, $this->values)) {
+                continue;
+            }
+
+            $value = $this->values[$name];
+
+            if ($info['unbound']) {
+                if (count($value)) {
+                  $array[$name] = array();
+                  foreach($value as $property) {
+                      $array[$name][] = self::propertyToArrayValue($property);
+                  }
+                }
+            } else {
+                $array[$name] = self::propertyToArrayValue($value);
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * Assign multiple values to an object.
      *
      * @param string $class The name of the class the properties belong to.
@@ -228,7 +257,8 @@ class BaseType
     protected function setValues($class, array $values = array())
     {
         foreach ($values as $property => $value) {
-            $this->set($class, $property, $value);
+            $actualValue = self::determineActualValueToAssign($class, $property, $value);
+            $this->set($class, $property, $actualValue);
         }
     }
 
@@ -525,6 +555,73 @@ class BaseType
             return $value ? 'true' : 'false';
         } else {
             return $value;
+        }
+    }
+
+    /**
+     * Helper function to convert a property in a value that we want in an array.
+     *
+     * @param mixed $value The value of the property.
+     *
+     * @returns mixed A value to add to an array.
+     */
+    private static function propertyToArrayValue($value)
+    {
+        if (is_subclass_of($value, '\DTS\eBaySDK\Types\BaseType', false)) {
+            return $value->toArray();
+        }
+        else if ($value instanceof \DateTime) {
+            return $value->format('Y-m-d\TH:i:s.000\Z');
+        } else {
+            return $value;
+        }
+    }
+
+    /**
+     * Helper function when assigning values via the ctor.
+     * Determines the actual value to assign to a property.
+     */
+    private static function determineActualValueToAssign($class, $property, $value)
+    {
+        if (!array_key_exists($property, self::$properties[$class])) {
+            return $value;
+        }
+
+        $info = self::propertyInfo($class, $property);
+
+        if ($info['unbound'] && is_array($value)) {
+            $values = array();
+            foreach($value as $val) {
+                $values[] = self::actualValue($info, $class, $property, $val);
+            }
+            return $values;
+        }
+
+        return self::actualValue($info, $class, $property, $value);
+    }
+
+    /**
+     * Helper function when assigning values via the ctor.
+     */
+    private static function actualValue($info, $class, $property, $value)
+    {
+        /**
+         * Shortcut. Objects can be assigned as is.
+         */
+        if (is_object($value)) {
+            return $value;
+        }
+
+        switch ($info['type']) {
+            case 'integer':
+            case 'string':
+            case 'double':
+            case 'boolean':
+                return $value;
+            case 'DateTime':
+                return new \DateTime($value, new \DateTimeZone('UTC'));
+            default:
+                return new $info['type']($value);
         }
     }
 }

@@ -27,6 +27,11 @@ use \DTS\eBaySDK\HttpClient\HttpClient;
 abstract class BaseService
 {
     /**
+     * @var string Current version of the SDK
+     */
+    const VERSION = '0.1.6';
+
+    /**
      * Helper constent when build requests that contain attachments.
      */
     const CRLF = "\r\n";
@@ -130,6 +135,15 @@ abstract class BaseService
         }
 
         return $this->logger;
+    }
+
+    /**
+     *
+     * @return \DTS\eBaySDK\Interfaces\HttpClientInterface
+     */
+    public function httpClient()
+    {
+        return $this->httpClient;
     }
 
     /**

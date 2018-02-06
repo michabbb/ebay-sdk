@@ -1,6 +1,6 @@
 {
     "name": "dts/ebay-sdk",
-    "description": "An eBay SDK for PHP. Use the eBay API in your PHP projects.",
+    "description": "This SDK is deprecated in favor of https://packagist.org/packages/dts/ebay-sdk-php.",
     "keywords": ["ebay", "api", "sdk"],
     "homepage": "http://devbay.net/",
     "type": "library",
@@ -28,5 +28,8 @@
             "DTS\\eBaySDK\\": "src/",
             "DTS\\eBaySDK\\Mocks\\": "test/"
         }
+    },
+    "suggest": {
+        "dts/ebay-sdk-php": "The SDK has moved to a new package name. The package you have installed, ebay-sdk, is deprecated and is no longer maintained."
     }
 }

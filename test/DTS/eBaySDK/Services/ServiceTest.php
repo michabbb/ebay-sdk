@@ -45,4 +45,16 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         // Should return the assigned logger.
         $this->assertInstanceOf('\DTS\eBaySDK\Mocks\Logger', $this->service1->logger());
     } 
+
+    public function testHttpClient()
+    {
+        $this->assertInstanceOf('\DTS\eBaySDK\Interfaces\HttpClientInterface', $this->service1->httpClient());
+        $this->assertInstanceOf('\DTS\eBaySDK\HttpClient\HttpClient', $this->service1->httpClient());
+
+        $this->assertInstanceOf('\DTS\eBaySDK\Interfaces\HttpClientInterface', $this->service2->httpClient());
+        $this->assertInstanceOf('\DTS\eBaySDK\HttpClient\HttpClient', $this->service2->httpClient());
+
+        $this->assertInstanceOf('\DTS\eBaySDK\Interfaces\HttpClientInterface', $this->service3->httpClient());
+        $this->assertInstanceOf('\DTS\eBaySDK\Mocks\HttpClient', $this->service3->httpClient());
+    }
 }

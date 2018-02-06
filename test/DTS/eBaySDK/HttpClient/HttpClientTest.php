@@ -18,4 +18,9 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\DTS\eBaySDK\Interfaces\HttpClientInterface', $this->obj);
     }
+
+    public function testGuzzle()
+    {
+        $this->assertInstanceOf('\Guzzle\Http\Client', $this->obj->guzzle());
+    }
 }
